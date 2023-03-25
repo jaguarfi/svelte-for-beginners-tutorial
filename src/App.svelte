@@ -9,6 +9,15 @@
 		console.log(beltColour);
 	}
 
+	let students = [
+		{ name: 'Juan Paez', beltColour: 'black', age: 25, id:1},
+		{ name: 'Camilo Sanchez', beltColour: 'orange', age: 28, id:2},
+		{ name: 'Luigi Bros', beltColour: 'brown', age: 35, id:3}
+	]
+
+	const handleDelete = (id) => {
+		students = students.filter(student => student.id !== id);
+	} 
 </script>
 
 <main>
@@ -17,6 +26,16 @@
 	<input type="text" bind:value={firstName}>
 	<input type="text" bind:value={lastName}>
 	<input type="text" bind:value={beltColour}>
+	{#each students as student (student.id)}
+		<div>
+			<h2>{student.name}</h2>
+			<p style="color: {student.beltColour}">You are a Ninja with {student.beltColour} belt</p> 
+			<p>{student.age} years old.</p>
+			<button on:click={() => handleDelete(student.id)}>Delete</button>
+		</div>
+		{:else}
+		<p>There are no students</p>
+	{/each}
 </main>
 
 <style>
