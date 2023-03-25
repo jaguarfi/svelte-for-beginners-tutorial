@@ -27,7 +27,15 @@
   };
 </script>
 
-<Modal msg='Sign up for offers' isPromo={true} {showModal} on:click={toggleModal}/>
+<Modal msg='Sign up for offers' isPromo={true} {showModal} on:click={toggleModal}>
+
+<h3 slot="title">Add a new person</h3>
+<form action="post">
+	<input type="text" placeholder="name">
+	<input type="text" placeholder="belt colour">
+	<button>Add Person</button>
+</form>
+</Modal>
 <main>
   <h1>Hello {name}!</h1>
   <button on:click={toggleModal}>Open Modal</button>
