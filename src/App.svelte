@@ -21,7 +21,7 @@
   };
 </script>
 
-<Modal />
+<Modal msg='Sign up for offers' isPromo={true}/>
 <main>
   <h1>Hello {name}!</h1>
   <p style="color: {beltColour}">You are a Ninja with {beltColour} belt</p>
