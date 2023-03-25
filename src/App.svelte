@@ -1,24 +1,21 @@
 <script>
-	export let name;
+	export let firstName = 'John';
+	export let lastName = 'Doe';
 	let beltColour = 'black';
 
-	const updateBeltColour = () => {
-		beltColour = 'red';
-	};
+	$: name = `${firstName} ${lastName}`;
+	$: {
+		console.log(name);
+		console.log(beltColour);
+	}
 
-	// I could have used this function and call it from the main by adding the following line of code
-	// <input on:input={handleInput} type="text" value={beltColour}>. However, using bind:value is a shorter way of 
-	// doing the same thing.
-	// const handleInput = (e) => {
-	// 	beltColour = e.target.value;
-	// };
 </script>
 
 <main>
 	<h1>Hello {name}!</h1>
-	<p style="color: {beltColour}">Hello, Ninja with {beltColour} belt</p>
-	<button on:click={updateBeltColour}>update belt color</button>
-	<!-- <input on:input={handleInput} type="text" value={beltColour}> -->
+	<p style="color: {beltColour}">You are a Ninja with {beltColour} belt</p> 
+	<input type="text" bind:value={firstName}>
+	<input type="text" bind:value={lastName}>
 	<input type="text" bind:value={beltColour}>
 </main>
 
