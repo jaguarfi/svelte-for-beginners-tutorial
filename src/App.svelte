@@ -1,4 +1,5 @@
 <script>
+	import Modal from './components/Modal.svelte';
 	export let firstName = 'John';
 	export let lastName = 'Doe';
 	let beltColour = 'black';
@@ -20,6 +21,7 @@
 	} 
 </script>
 
+<Modal/>
 <main>
 	<h1>Hello {name}!</h1>
 	<p style="color: {beltColour}">You are a Ninja with {beltColour} belt</p> 
