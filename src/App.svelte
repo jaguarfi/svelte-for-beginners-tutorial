@@ -2,7 +2,9 @@
   import Modal from './components/Modal.svelte';
   export let firstName = 'John';
   export let lastName = 'Doe';
+
   let beltColour = 'black';
+  let showModal = false;
 
   $: name = `${firstName} ${lastName}`;
   $: {
@@ -19,11 +21,16 @@
   const handleDelete = (id) => {
     students = students.filter((student) => student.id !== id);
   };
+
+  const toggleModal = () => {
+	showModal = !showModal;
+  };
 </script>
 
-<Modal msg='Sign up for offers' isPromo={true}/>
+<Modal msg='Sign up for offers' isPromo={true} {showModal} on:click={toggleModal}/>
 <main>
   <h1>Hello {name}!</h1>
+  <button on:click={toggleModal}>Open Modal</button>
   <p style="color: {beltColour}">You are a Ninja with {beltColour} belt</p>
   <input type="text" bind:value={firstName} />
   <input type="text" bind:value={lastName} />
