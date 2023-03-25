@@ -1,10 +1,16 @@
 <script>
 	export let name;
+	let beltColour = 'black';
+
+	const updateBeltColour = () => {
+		beltColour = 'red';
+	};
 </script>
 
 <main>
 	<h1>Hello {name}!</h1>
-	<p>Hello, Ninjas!</p>
+	<p>Hello, Ninja with {beltColour} belt</p>
+	<button on:click={updateBeltColour}>update belt color</button>
 </main>
 
 <style>
