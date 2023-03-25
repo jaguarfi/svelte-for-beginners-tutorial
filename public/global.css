@@ -64,3 +64,21 @@ button:not(:disabled):active {
 button:focus {
 	border-color: #666;
 }
+
+/* Custom styles */
+
+/* Override default styles */
+body {
+	color: #777;
+	background-color: #f4f4f4;
+	padding: 0;
+	margin: 0;
+}
+
+h2 {
+	color: orangered;
+}
+
+button {
+	background: white;
+}
