@@ -14,9 +14,9 @@
   }
 
   let students = [
-    {name: 'Juan Paez', beltColour: 'black', age: 25, id: 1},
-    {name: 'Camilo Sanchez', beltColour: 'orange', age: 28, id: 2},
-    {name: 'Luigi Bros', beltColour: 'brown', age: 35, id: 3}
+    {name: 'Juan Paez', beltColour: 'black', age: 25, skills:['running, fighting'], id: 1},
+    {name: 'Camilo Sanchez', beltColour: 'orange', age: 28, skills:['fighting'], id: 2},
+    {name: 'Luigi Bros', beltColour: 'brown', age: 35, skills:[], id: 3}
   ];
 
   const handleDelete = (id) => {
@@ -26,12 +26,18 @@
   const toggleModal = () => {
 	showModal = !showModal;
   };
+
+  const handleAddStudent = (e) => {
+	const student = e.detail;
+	students = [...students, student];
+	toggleModal();
+  };
 </script>
 
 <Modal msg='Sign up for offers' isPromo={true} {showModal} on:click={toggleModal}>
 
 <h3 slot="title">Add a new person</h3>
-<AddPersonForm />
+<AddPersonForm on:addPerson={handleAddStudent}/>
 </Modal>
 <main>
   <h1>Hello {name}!</h1>
@@ -45,6 +51,7 @@
       <h2>{student.name}</h2>
       <p style="color: {student.beltColour}">You are a Ninja with {student.beltColour} belt</p>
       <p>{student.age} years old.</p>
+	  <p>{student.skills.length > 0 ? `You have the following skills: ${student.skills.join(', ')}`: `Please add your skills.`}</p>
       <button on:click={() => handleDelete(student.id)}>Delete</button>
     </div>
   {:else}
