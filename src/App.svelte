@@ -1,5 +1,6 @@
 <script>
   import Modal from './components/Modal.svelte';
+  import AddPersonForm from "./components/AddPersonForm.svelte";
   export let firstName = 'John';
   export let lastName = 'Doe';
 
@@ -30,11 +31,7 @@
 <Modal msg='Sign up for offers' isPromo={true} {showModal} on:click={toggleModal}>
 
 <h3 slot="title">Add a new person</h3>
-<form action="post">
-	<input type="text" placeholder="name">
-	<input type="text" placeholder="belt colour">
-	<button>Add Person</button>
-</form>
+<AddPersonForm />
 </Modal>
 <main>
   <h1>Hello {name}!</h1>
