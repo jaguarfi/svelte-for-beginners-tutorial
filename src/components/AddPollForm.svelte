@@ -1,5 +1,6 @@
 <script>
   import {createEventDispatcher} from 'svelte';
+  import Button from '../shared/Button.svelte';
 
   const dispatch = createEventDispatcher();
   let fields = {
@@ -26,7 +27,7 @@
     <label for="answer-b">Answer B:</label>
     <input type="text" id="answer-b" bind:value={fields.answerB} />
   </div>
-  <button>Add Poll</button>
+  <Button type={'secondary'} flat={false} inverse={false}>Add Poll</Button>
 </form>
 
 <style>
