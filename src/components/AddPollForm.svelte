@@ -1,7 +1,7 @@
 <script>
   import {createEventDispatcher} from 'svelte';
   import Button from '../shared/Button.svelte';
-  import { v4 as uuidv4 } from 'uuid';
+  import {v4 as uuidv4} from 'uuid';
 
   const dispatch = createEventDispatcher();
   let fields = {
