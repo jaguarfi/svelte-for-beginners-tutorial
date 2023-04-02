@@ -4,13 +4,43 @@
 
   const dispatch = createEventDispatcher();
   let fields = {
-    property: '',
+    question: '',
     answerA: '',
     answerB: ''
   };
 
+  let errors = {
+    question: '',
+    answerA: '',
+    answerB: ''
+  };
+
+  let valid = false;
+
   const handleSubmit = () => {
-    dispatch('addPoll', fields);
+    valid = true;
+    if (fields.question.trim().length < 5) {
+      errors.question = 'Question must be at least 5 characters';
+      valid = false;
+    } else {
+      errors.question = '';
+    }
+    if (fields.answerA.trim().length < 1) {
+      errors.answerA = 'Answer A must be at least 2 characters';
+      valid = false;
+    } else {
+      errors.answerA = '';
+    }
+    if (fields.answerB.trim().length < 1) {
+      errors.answerB = 'Answer B must be at least 2 characters';
+      valid = false;
+    } else {
+      errors.answerB = '';
+    }
+
+    if (valid) {
+      dispatch('addPoll', fields);
+    }
   };
 </script>
 
@@ -18,14 +48,17 @@
   <div class="form-field">
     <label for="question">Poll Question:</label>
     <input type="text" id="question" bind:value={fields.question} />
+    <div class="error">{errors.question}</div>
   </div>
   <div class="form-field">
     <label for="answer-a">Answer A:</label>
     <input type="text" id="answer-a" bind:value={fields.answerA} />
+    <div class="error">{errors.answerA}</div>
   </div>
   <div class="form-field">
     <label for="answer-b">Answer B:</label>
     <input type="text" id="answer-b" bind:value={fields.answerB} />
+    <div class="error">{errors.answerB}</div>
   </div>
   <Button type={'secondary'} flat={false} inverse={false}>Add Poll</Button>
 </form>
@@ -50,5 +83,11 @@
     margin: 10px auto;
     text-align: left;
     margin-bottom: 10px;
+  }
+
+  .error {
+    font-weight: bold;
+    color: #d91b42;
+    font-size: 12px;
   }
 </style>
