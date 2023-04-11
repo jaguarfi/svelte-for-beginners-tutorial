@@ -1,15 +1,25 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import PollStore from '../stores/PollStore';
   import Card from '../shared/Card.svelte';
   export let poll;
-  const dispatch = createEventDispatcher();
 
   $: totalVotes = poll.votesA + poll.votesB;
   $: percentA = totalVotes ? (poll.votesA / totalVotes) * 100 : 0;
   $: percentB = totalVotes ? (poll.votesB / totalVotes) * 100 : 0;
 
   const handleVote = (option, id) => {
-    dispatch('vote', { option, id });
+    PollStore.update((polls) => {
+      return polls.map((poll) => {
+        if (poll.id === id) {
+          if (option === 'a') {
+            poll.votesA++;
+          } else {
+            poll.votesB++;
+          }
+        }
+        return poll;
+      });
+    });
   };
 </script>
 
@@ -19,11 +29,11 @@
     <p>Total votes: {totalVotes}</p>
     <div class="answers">
       <div class="answer" on:click={() => handleVote('a', poll.id)}>
-        <div class="percent percent-a" style="width: {percentA}%"/>
+        <div class="percent percent-a" style="width: {percentA}%" />
         <span>{poll.answerA} ({poll.votesA})</span>
       </div>
       <div class="answer" on:click={() => handleVote('b', poll.id)}>
-        <div class="percent percent-b" style="width: {percentB}%"/>
+        <div class="percent percent-b" style="width: {percentB}%" />
         <span>{poll.answerB} ({poll.votesB})</span>
       </div>
     </div>
@@ -53,7 +63,7 @@
   span {
     display: inline-block;
     padding: 10px 20px;
-  } 
+  }
   .percent {
     height: 100%;
     box-sizing: border-box;

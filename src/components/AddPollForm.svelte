@@ -1,6 +1,7 @@
 <script>
   import {createEventDispatcher} from 'svelte';
   import Button from '../shared/Button.svelte';
+  import PollStore from '../stores/PollStore';
   import {v4 as uuidv4} from 'uuid';
 
   const dispatch = createEventDispatcher();
@@ -41,7 +42,8 @@
 
     if (valid) {
       let poll = {...fields, votesA: 0, votesB: 0, id: uuidv4()};
-      dispatch('addPoll', poll);
+      PollStore.update((polls) => [poll, ...polls]);
+      dispatch('addPoll');
     }
   };
 </script>

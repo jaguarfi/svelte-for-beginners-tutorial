@@ -4,9 +4,13 @@
   import Tabs from './shared/Tabs.svelte';
   import PollList from './components/PollList.svelte';
   import AddPollForm from './components/AddPollForm.svelte';
+  import PollStore from './stores/PollStore';
 
   let tabs = ['Current Polls', 'Add Poll'];
   let polls = [];
+  PollStore.subscribe((data) => {
+    polls = data;
+  });
   let activeItem = tabs[0];
 
   const handleChangeTab = (e) => {
@@ -14,22 +18,7 @@
   };
 
   const handleAddPoll = (e) => {
-    polls = [e.detail, ...polls];
     activeItem = tabs[0];
-    console.log(e.detail);
-  };
-
-  const handleVote = (e) => {
-    polls = polls.map((poll) => {
-      if (poll.id === e.detail.id) {
-        if (e.detail.option === 'a') {
-          poll.votesA++;
-        } else {
-          poll.votesB++;
-        }
-      }
-      return poll;
-    });
   };
 </script>
 
@@ -38,9 +27,9 @@
   <h1>Start here!</h1>
   <Tabs on:changeTab={handleChangeTab} {tabs} {activeItem} />
   {#if tabs[0] === activeItem}
-        <PollList {polls} on:vote={handleVote}/>
+    <PollList />
   {:else if tabs[1] === activeItem}
-    <AddPollForm on:addPoll={handleAddPoll}/>
+    <AddPollForm on:addPoll={handleAddPoll} />
   {/if}
 </main>
 <Footer />
