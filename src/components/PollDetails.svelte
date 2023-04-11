@@ -1,6 +1,7 @@
 <script>
   import PollStore from '../stores/PollStore';
   import Card from '../shared/Card.svelte';
+  import Button from '../shared/Button.svelte';
   export let poll;
 
   $: totalVotes = poll.votesA + poll.votesB;
@@ -36,6 +37,10 @@
         <div class="percent percent-b" style="width: {percentB}%" />
         <span>{poll.answerB} ({poll.votesB})</span>
       </div>
+    </div>
+    <div class="delete">
+      <Button flat={true} on:click={() => PollStore.update((polls) => polls.filter((p) => p.id !== poll.id))}>
+        Delete</Button>
     </div>
   </div>
 </Card>
@@ -81,5 +86,10 @@
   .percent-b {
     border-left: 4px solid #ab4212;
     background-color: rgb(171, 166, 28, 0.2);
+  }
+
+  .delete {
+    text-align: center;
+    margin-top: 30px;
   }
 </style>
