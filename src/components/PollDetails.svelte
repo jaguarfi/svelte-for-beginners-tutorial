@@ -1,8 +1,16 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
   import Card from '../shared/Card.svelte';
   export let poll;
+  const dispatch = createEventDispatcher();
 
   $: totalVotes = poll.votesA + poll.votesB;
+  $: percentA = totalVotes ? (poll.votesA / totalVotes) * 100 : 0;
+  $: percentB = totalVotes ? (poll.votesB / totalVotes) * 100 : 0;
+
+  const handleVote = (option, id) => {
+    dispatch('vote', { option, id });
+  };
 </script>
 
 <Card>
@@ -10,12 +18,12 @@
     <h3 class="poll-question">{poll.question}</h3>
     <p>Total votes: {totalVotes}</p>
     <div class="answers">
-      <div class="answer">
-        <div class="percent percent-a" />
+      <div class="answer" on:click={() => handleVote('a', poll.id)}>
+        <div class="percent percent-a" style="width: {percentA}%"/>
         <span>{poll.answerA} ({poll.votesA})</span>
       </div>
-      <div class="answer">
-        <div class="percent percent-b" />
+      <div class="answer" on:click={() => handleVote('b', poll.id)}>
+        <div class="percent percent-b" style="width: {percentB}%"/>
         <span>{poll.answerB} ({poll.votesB})</span>
       </div>
     </div>
@@ -45,5 +53,23 @@
   span {
     display: inline-block;
     padding: 10px 20px;
+  } 
+  .percent {
+    height: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: width 0.5s ease;
+  }
+
+  .percent-a {
+    border-left: 4px solid #2395d2;
+    background-color: hsla(201, 71%, 48%, 0.2);
+  }
+
+  .percent-b {
+    border-left: 4px solid #ab4212;
+    background-color: rgb(171, 166, 28, 0.2);
   }
 </style>
